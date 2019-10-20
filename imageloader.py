@@ -3,23 +3,24 @@ import argparse
 import os
 import re
 import sys
+import logging
 
 
 def download(url, dest):
     try:
         response = requests.get(url)
         if not "image" in response.headers["Content-Type"]:
-            print("Source is not an image.")
+            logging.warning(f"{url} - Response object not of type image.")
             return False
     except requests.exceptions.RequestException:
-        print("Could not connect to server with url: " + url)
+        logging.warning(f"{url} - Could not connect to server.")
         return False
     if response.status_code == 200:
         with open(dest, "wb") as file:
             file.write(response.content)
         return True
     else:
-        print("Not found.")
+        logging.warning(f"{url} - Image not found on server.")
         return False
 
 def parse_arguments():
@@ -42,21 +43,23 @@ def read_unique_lines(file_name):
     return lines
 
 def validate_arguments(arguments):
-    if not os.path.exists(arguments["input_file"]):
-        #TODO: Paste error
+    input_file_path = os.path.realpath(arguments["input_file"])
+    if not os.path.exists(input_file_path):
+        logging.error(f" File not found: '{input_file_path}'")
         sys.exit(-1)
     if arguments["output_path"] != None:
-        if not os.path.exists(arguments["output_path"]):
-            #TODO: Paste error
+        output_path = os.path.realpath(arguments["output_path"])
+        if not os.path.exists(output_path):
+            logging.error(f" Path does not exist: '{output_path}'")
             sys.exit(-1)
 
-
-def main():
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     arguments = parse_arguments()
     validate_arguments(arguments)
     urls = read_unique_lines(arguments["input_file"])
     for i, url in enumerate(urls, start=1):
         download(url, os.path.join(arguments["output_path"], str(i) + ".jpg"))
-main()
+
 
 
