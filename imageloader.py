@@ -1,4 +1,5 @@
 import requests
+import argparse
 
 
 def download_url(url, dest):
@@ -14,5 +15,9 @@ def download_url(url, dest):
     else:
         print("Not found.")
         return False
-        
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Download images in bulk.')
+    parser.add_argument('input_file', metavar='<Input file>', type=str, help='The file containing urls of pictures to download.')
+    parser.add_argument('-o', '--output_path', metavar='<Output folder>', type=str, help='Where the images will be stored.')
+    return vars(parser.parse_args())
