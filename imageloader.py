@@ -1,8 +1,7 @@
 import requests
 import argparse
 
-
-def download_url(url, dest):
+def download(url, dest):
     try:
         response = requests.get(url)
     except requests.exceptions.RequestException:
