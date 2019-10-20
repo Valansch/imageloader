@@ -4,8 +4,11 @@ import argparse
 def download(url, dest):
     try:
         response = requests.get(url)
+        if not "image" in response.headers["Content-Type"]:
+            print("Source is not an image.")
+            return False
     except requests.exceptions.RequestException:
-        print("Could not connect to server.")
+        print("Could not connect to server with url: " + url)
         return False
     if response.status_code == 200:
         with open(dest, "wb") as file:
