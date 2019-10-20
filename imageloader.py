@@ -45,11 +45,18 @@ def validate_arguments(arguments):
     if not os.path.exists(arguments["input_file"]):
         #TODO: Paste error
         sys.exit(-1)
-    print()
     if arguments["output_path"] != None:
-        print(os.path.abspath(arguments["output_path"]))
         if not os.path.exists(arguments["output_path"]):
             #TODO: Paste error
             sys.exit(-1)
+
+
+def main():
+    arguments = parse_arguments()
+    validate_arguments(arguments)
+    urls = read_unique_lines(arguments["input_file"])
+    for i, url in enumerate(urls, start=1):
+        download(url, os.path.join(arguments["output_path"], str(i) + ".jpg"))
+main()
 
 
