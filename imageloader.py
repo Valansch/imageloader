@@ -21,3 +21,16 @@ def parse_arguments():
     parser.add_argument('input_file', metavar='<Input file>', type=str, help='The file containing urls of pictures to download.')
     parser.add_argument('-o', '--output_path', metavar='<Output folder>', type=str, help='Where the images will be stored.')
     return vars(parser.parse_args())
+
+def read_unique_lines(file_name):
+    lines = []
+    with open(file_name, "r") as file:
+        line = file.readline()
+        while line:
+            trimmed = re.sub(r'(\s)+', '', line)
+            if len(trimmed) > 0:
+                lines.append(trimmed)
+            line = file.readline()
+    
+    lines = list(dict.fromkeys(lines)) #Remove duplicates
+    return lines
