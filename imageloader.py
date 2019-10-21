@@ -72,18 +72,18 @@ def validate_arguments(arguments):
     input_file_path = os.path.realpath(arguments["input_file"])
     if not os.path.exists(input_file_path):
         logging.error(f" File not found: '{input_file_path}'")
-        sys.exit(-1)
+        sys.exit(1)
     elif not os.path.isfile(input_file_path):
         logging.error(f" Input file is a directory.")
-        sys.exit(-1)
+        sys.exit(1)
 
     output_path = os.path.realpath(arguments["output_path"])
     if not os.path.exists(output_path):
         logging.error(f" Path does not exist: '{output_path}'")
-        sys.exit(-1)
+        sys.exit(1)
     elif os.path.isfile(output_path):
         logging.error(f" Output path is a file.")
-        sys.exit(-1)
+        sys.exit(1)
     return True
 
 
