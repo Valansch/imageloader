@@ -10,7 +10,7 @@ test_input_file_content = (
 )
 test_output_folder_path = "test_output"
 test_file_output_file_path = "test_output.jpg"
-arguments = {"input_file": test_input_file_name, "output_path": test_output_folder_path}
+arguments = {"input_file": test_input_file_name, "output_path": test_output_folder_path, "threads": 8}
 
 
 def rm(inode_path):

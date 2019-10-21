@@ -48,6 +48,7 @@ def parse_arguments():
         "--threads",
         metavar="<Output folder>",
         default=8,
+        choices=range(1, 256),
         type=int,
         help="Number of concurrent download threads.",
     )
