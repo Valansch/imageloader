@@ -64,8 +64,9 @@ def read_unique_lines(file_name):
                 lines.append(trimmed)
             line = file.readline()
 
-    lines = list(dict.fromkeys(lines))  # Remove duplicates
-    return lines
+    # Remove duplicates while preserving order
+    uniqueSet = set()
+    return [line for line in lines if line not in uniqueSet and not uniqueSet.add(line)]
 
 
 def validate_arguments(arguments):
