@@ -4,7 +4,7 @@ import os
 import re
 import sys
 import logging
-
+from concurrent.futures import ThreadPoolExecutor
 
 def download(url, dest):
     try:
@@ -18,6 +18,7 @@ def download(url, dest):
     if response.status_code == 200:
         with open(dest, "wb") as file:
             file.write(response.content)
+        logging.info(f"{url} - SUCCESS.")
         return True
     else:
         logging.warning(f"{url} - Image not found on server.")
@@ -27,6 +28,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Download images in bulk.')
     parser.add_argument('input_file', metavar='<Input file>', type=str, help='The file containing urls of pictures to download.')
     parser.add_argument('-o', '--output_path', metavar='<Output folder>', default=os.getcwd(), type=str, help='Where the images will be stored.')
+    parser.add_argument('-t', '--threads', metavar='<Output folder>', default=8, type=int, help='Number of concurrent download threads.')
     return vars(parser.parse_args())
 
 def read_unique_lines(file_name):
@@ -60,15 +62,16 @@ def validate_arguments(arguments):
         sys.exit(-1)
     return True
 
-
-#TODO: Parallell 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     arguments = parse_arguments()
     validate_arguments(arguments)
     urls = read_unique_lines(arguments["input_file"])
+    executor = ThreadPoolExecutor(arguments["threads"])
     for i, url in enumerate(urls, start=1):
-        download(url, os.path.join(arguments["output_path"], str(i) + ".jpg"))
+        output_file = os.path.join(arguments["output_path"], str(i) + ".jpg")
+        executor.submit(download, url, output_file)
+
 
 
 
