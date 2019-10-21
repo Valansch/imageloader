@@ -1,10 +1,16 @@
-Given a plaintext file containing URLs, one per line, e.g.:
+```
+usage: imageloader.py [-h] [-o <Output folder>] [-t <Output folder>] Input file>
 
-http://mywebserver.com/images/271947.jpg
+Download images in bulk.
 
-http://mywebserver.com/images/24174.jpg
+positional arguments:
+  <Input file>          The file containing urls of pictures to download.
 
-http://somewebsrv.com/img/992147.jpg
+optional arguments:
+  -h, --help            show this help message and exit
+  -o <Output folder>, --output_path <Output folder>
+                        Where the images will be stored.
+  -t <Output folder>, --threads <Output folder>
+                        Number of concurrent download threads.
 
-Write a script that takes this plaintext file as an argument and downloads all images, storing them on the local hard disk
-
+```
