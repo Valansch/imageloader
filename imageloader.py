@@ -31,7 +31,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description="Download images in bulk.")
     parser.add_argument(
         "input_file",
-        metavar="<Input file>",
+        metavar="<Inpupert file>",
         type=str,
         help="The file containing urls of pictures to download.",
     )
@@ -57,8 +57,7 @@ def parse_arguments():
 def read_unique_lines(file_name):
     lines = []
     with open(file_name, "r") as file:
-        line = file.readline()
-        while line:
+        for line in file.readlines():
             trimmed = re.sub(r"(\s)+", "", line)
             if len(trimmed) > 0:
                 lines.append(trimmed)
