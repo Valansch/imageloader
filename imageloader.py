@@ -31,7 +31,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description="Download images in bulk.")
     parser.add_argument(
         "input_file",
-        metavar="<Inpupert file>",
+        metavar="<Input file>",
         type=str,
         help="The file containing urls of pictures to download.",
     )
