@@ -1,5 +1,5 @@
 ```
-usage: imageloader.py [-h] [-o <Output folder>] [-t <Output folder>] Input file>
+usage: imageloader.py [-h] [-o <Output path>] [-t <Number>] <Input file>
 
 Download images in bulk.
 
@@ -8,9 +8,9 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  -o <Output folder>, --output_path <Output folder>
+  -o <Output path>, --output_path <Output path>
                         Where the images will be stored.
-  -t <Output folder>, --threads <Output folder>
+  -t <Number>, --threads <Number>
                         Number of concurrent download threads.
 
 ```

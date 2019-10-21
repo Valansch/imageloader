@@ -38,7 +38,7 @@ def parse_arguments():
     parser.add_argument(
         "-o",
         "--output_path",
-        metavar="<Output folder>",
+        metavar="<Output path>",
         default=os.getcwd(),
         type=str,
         help="Where the images will be stored.",
@@ -46,7 +46,7 @@ def parse_arguments():
     parser.add_argument(
         "-t",
         "--threads",
-        metavar="<Output folder>",
+        metavar="<Number>",
         default=8,
         choices=range(1, 256),
         type=int,
